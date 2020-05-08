@@ -65,6 +65,9 @@ jobs:
         run: flutter build ios --release --no-codesign
   notification:
     needs: [build-android, build-ios]
+    if: always()
+    env:
+      COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -83,7 +86,7 @@ jobs:
           SLACK_MESSAGE: |
             Build failure!
             See more detail to check github.
-            commit -> `$commitmsg`
+            commit -> $COMMIT_MESSAGE
           SLACK_USERNAME: Github Actions
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
       # 成功した時のSlackへの通知
@@ -96,6 +99,6 @@ jobs:
           SLACK_TITLE: ':rocket: Build Success :rocket:'
           SLACK_MESSAGE: |
             Build success! yattane!
-            commit -> `$commitmsg`
+            commit -> $COMMIT_MESSAGE
           SLACK_USERNAME: Github Actions
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
