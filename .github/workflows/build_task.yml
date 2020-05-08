@@ -26,6 +26,12 @@ jobs:
         with:
           flutter-version: '1.17.0'
           channel: 'stable'
+      - uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
       - name: Pub get
         run: flutter pub get
       - name: Generate google-services.json
@@ -43,6 +49,12 @@ jobs:
         with:
           flutter-version: '1.17.0'
           channel: 'stable'
+      - uses: actions/cache@v1
+        with:
+          path: ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
       - name: Pub get
         run: flutter pub get
       - name: Generate GoogleService-Info.plist
