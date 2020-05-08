@@ -48,7 +48,7 @@ jobs:
       - name: Generate GoogleService-Info.plist
         env:
           GOOGLE_SERVICES_BASE64: ${{ secrets.GOOGLE_SERVICES_BASE64 }}
-        run: echo $GOOGLE_SERVICES_INFO_BASE64 | base64 --decode --ignore-garbage > $GITHUB_WORKSPACE/ios/Runner/GoogleService-Info.plist
+        run: echo GOOGLE_SERVICE_INFO_BASE64 | base64 --decode --ignore-garbage > $GITHUB_WORKSPACE/ios/Runner/GoogleService-Info.plist
       - name: iOS build
         run: flutter build ios
   notification:
@@ -64,7 +64,7 @@ jobs:
         if: failure()
         uses: rtCamp/action-slack-notify@v2.0.1
         env:
-          SLACK_CHANNEL: notify-android
+          SLACK_CHANNEL: gotties-log
           SLACK_ICON: https://github.com/actions.png?size=48
           SLACK_COLOR: '#ff0000'
           SLACK_TITLE: ':fire: Build Failure :fire:'
@@ -79,7 +79,7 @@ jobs:
         if: success()
         uses: rtCamp/action-slack-notify@v2.0.1
         env:
-          SLACK_CHANNEL: notify-android
+          SLACK_CHANNEL: gotties-log
           SLACK_ICON: https://github.com/actions.png?size=48
           SLACK_TITLE: ':rocket: Build Success :rocket:'
           SLACK_MESSAGE: |
