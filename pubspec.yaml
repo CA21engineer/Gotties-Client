@@ -1,0 +1,41 @@
+name: gottiesclient
+description: おうちハッカソン。
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.3.0 <3.0.0"
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: ^4.0.5+1
+  cupertino_icons: ^0.1.2
+  image_picker: ^0.6.5+3
+  firebase_core: ^0.4.4+3
+  firebase_auth: ^0.16.0
+  cloud_firestore: ^0.13.5
+  google_sign_in: ^4.4.4
+  http: ^0.12.0+1
+  cached_network_image: ^2.2.0
+  audioplayers: ^0.15.1
+  transparent_image: ^1.0.0
+  firebase_dynamic_links: ^0.5.0+11
+  firebase_storage: ^3.1.5
+  share: ^0.6.4
+  uuid: 2.0.4
+  pull_to_refresh: ^1.5.7
+  bubble: 1.1.9+1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  pedantic_mono: any
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/btn_signin_google/
+    - assets/images/account_circle/
+    - assets/audio/
+  fonts:
+    - family: NotoSansJP-Regular
+      fonts:
+      - asset: assets/fonts/NotoSansJP-Regular.otf
