@@ -50,3 +50,7 @@ vendor/
 
 # vscode settings
 .vscode
+
+# Firebase
+**/google-services.json
+**/GoogleService-Info.plist
