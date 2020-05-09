@@ -22,7 +22,7 @@ jobs:
       - name: Flutter analyze
         run: ./scripts/analyze.sh
   build-android:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     needs: [analyze]
     steps:
       - uses: actions/checkout@v2
@@ -36,6 +36,10 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - name: Bundle install
+        run: bundle install
+      - name: Install firebase-tools
+        run: npm i -g firebase-tools
       - name: Pub get
         run: flutter pub get
       - name: Generate google-services.json
@@ -44,6 +48,8 @@ jobs:
         run: echo $GOOGLE_SERVICES_BASE64 | base64 --decode --ignore-garbage > $GITHUB_WORKSPACE/android/app/google-services.json
       - name: Android build
         run: flutter build apk --release
+      - name: Distribute App
+        run: bundle exec fastlane android distribute_app
       - name: Create file failure.txt and write 'true' into it
         if: always()
         run: echo ${{ job.status == 'failure' }} > failure.txt
