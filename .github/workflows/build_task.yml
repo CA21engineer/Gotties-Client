@@ -46,7 +46,7 @@ jobs:
         run: flutter build apk --release
       - name: Create file failure.txt and write 'true' into it
         if: always()
-        run: echo ${{ failure() }} > failure.txt
+        run: echo ${{ job.status == failure }} > failure.txt
       - name: Upload file about failure
         if: always()
         uses: actions/upload-artifact@v1
@@ -79,7 +79,7 @@ jobs:
         run: flutter build ios --release --no-codesign
       - name: Create file failure.txt and write 'true' into it
         if: always()
-        run: echo ${{ failure() }} > failure.txt
+        run: echo ${{ job.status == failure }} > failure.txt
       - name: Upload file about failure
         if: always()
         uses: actions/upload-artifact@v1
