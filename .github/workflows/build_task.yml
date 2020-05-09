@@ -25,7 +25,7 @@ jobs:
         run: ./scripts/analyze.sh
   build-android:
     if: ${{ !contains(github.event.pull_request.title, '[skip ci]') }}
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     needs: [analyze]
     steps:
       - uses: actions/checkout@v2
@@ -39,6 +39,13 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - uses: masa-iwasaki/setup-rbenv@v1
+      - name: Install Ruby
+        run: |
+          eval "$(rbenv init -)"
+          rbenv install -s `cat .ruby-version`
+      - name: Setup Bundler
+        run: gem install bundler
       - name: Bundle install
         run: bundle install
       - name: Install firebase-tools
