@@ -1,9 +1,11 @@
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
 
-class DetailStore with ChangeNotifier {
+class DetailStore with ChangeNotifier, WidgetsBindingObserver {
   DetailStore() {
+    WidgetsBinding.instance.addObserver(this);
     _startBeforeAfter();
   }
 
@@ -36,11 +38,21 @@ class DetailStore with ChangeNotifier {
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      _player.pause();
+      isPlaying = false;
+      notifyListeners();
+    }
+  }
+
+  @override
   void dispose() {
     _player
       ..stop()
       ..dispose();
     isPlaying = false;
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 }
