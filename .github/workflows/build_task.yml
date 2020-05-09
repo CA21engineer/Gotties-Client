@@ -44,6 +44,16 @@ jobs:
         run: echo $GOOGLE_SERVICES_BASE64 | base64 --decode --ignore-garbage > $GITHUB_WORKSPACE/android/app/google-services.json
       - name: Android build
         run: flutter build apk --release
+      - name: Create file failure.txt and write 'true' into it
+        if: failure()
+        run: echo 'true' > failure.txt
+      - name: Upload file about failure
+        if: failure()
+        uses: actions/upload-artifact@v1
+        with:
+          name: pass_file
+          path: failure.txt
+
   build-ios:
     runs-on: macos-latest
     needs: [analyze]
@@ -67,6 +77,15 @@ jobs:
         run: echo $GOOGLE_SERVICE_INFO_BASE64 | base64 --decode > $GITHUB_WORKSPACE/ios/Runner/GoogleService-Info.plist
       - name: iOS build
         run: flutter build ios --release
+      - name: Create file failure.txt and write 'true' into it
+        if: failure()
+        run: echo 'true' > failure.txt
+      - name: Upload file about failure
+        if: failure()
+        uses: actions/upload-artifact@v1
+        with:
+          name: pass_file
+          path: failure.txt
   notification:
     needs: [build-android, build-ios]
     if: always()
@@ -75,12 +94,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Download file post_message.txt
+        uses: actions/download-artifact@v1
+        with:
+          name: pass_file
+      - name: Read file failure.txt and set output parameter
+        id: set_output
+        run: echo "::set-output name=failure::$(<pass_file/failure.txt)"
       - name: get commit message
         run: |
           echo ::set-env name=commitmsg::$(git log --format=%B -n 1 ${{ github.event.after }})
       # 失敗したときのSlackへの通知
       - name: Slack Notification Failure
-        if: failure()
+        if: steps.set_output.outputs.failure == 'true'
         uses: rtCamp/action-slack-notify@v2.0.1
         env:
           SLACK_CHANNEL: gotties-log
@@ -95,7 +121,7 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
       # 成功した時のSlackへの通知
       - name: Slack Notification Success
-        if: success()
+        if: steps.set_output.outputs.failure != 'true'
         uses: rtCamp/action-slack-notify@v2.0.1
         env:
           SLACK_CHANNEL: gotties-log
