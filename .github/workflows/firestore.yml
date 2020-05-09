@@ -30,6 +30,12 @@ jobs:
         path: ~/.npm
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: ${{ runner.os }}-node-
-    - run: npm ci
-    - run: npm test
+    - name: npm ci
+      run: npm ci
+    - name: emulator setup
+      run: npx firebase setup:emulators:firestore
+    - name: emulator start
+      run: npx firebase emulators:start --only firestore &
+    - name: npm test
+      run: npm test
  

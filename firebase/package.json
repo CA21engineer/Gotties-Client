@@ -1,0 +1,32 @@
+{
+  "name": "gotties-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CA21engineer/Gotties-Client.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CA21engineer/Gotties-Client/issues"
+  },
+  "homepage": "https://github.com/CA21engineer/Gotties-Client#readme",
+  "dependencies": {
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "@firebase/testing": "^0.19.2",
+    "@types/firebase": "^3.2.1",
+    "@types/jest": "^25.2.1",
+    "firebase-tools": "^8.2.0",
+    "fs": "0.0.1-security",
+    "jest": "^26.0.1",
+    "jest-environment-uint8array": "^1.0.0",
+    "ts-jest": "^25.5.0"
+  }
+}
