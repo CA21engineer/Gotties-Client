@@ -1,16 +1,19 @@
 import { createEmptyArticle } from './entities/article';
-const firebase = require('@firebase/testing');
+import { firestore } from 'firebase';
 const fs = require('fs');
+export const firebase = require('@firebase/testing');
 
-interface Auth {
+export interface Auth {
   uid: string,
   email: string,
 }
 
-const projectID = 'gotties-homehack';
+export const projectID = 'gotties-homehack';
 const databaseName = 'gotties-homehack';
-const rules = fs.readFileSync('./firestore.rules', 'utf8');
-const authenticatedApp = (auth: Auth | null) => firebase.initializeTestApp({ projectId: projectID, databaseName, auth }).firestore();
+export const rules = fs.readFileSync('./firestore.rules', 'utf8');
+export const authenticatedApp: (auth: Auth | null) => firestore.Firestore = (auth: Auth | null) => {
+  return firebase.initializeTestApp({ projectId: projectID, databaseName, auth }).firestore();
+}
 
 describe('sample test', () => {
 
