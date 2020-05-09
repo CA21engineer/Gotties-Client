@@ -54,3 +54,6 @@ vendor/
 # Firebase
 **/google-services.json
 **/GoogleService-Info.plist
+
+# fastlane
+fastlane/report.xml
