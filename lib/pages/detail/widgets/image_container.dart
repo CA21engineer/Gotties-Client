@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,12 +23,50 @@ class ImageContainer extends StatelessWidget {
         children: <Widget>[
           ConstrainedBox(
             constraints: BoxConstraints.expand(height: _height),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 20,
+                sigmaY: 20,
+              ),
+              child: CachedNetworkImage(
+                imageUrl: beforeImageURL,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          ConstrainedBox(
+            constraints: BoxConstraints.expand(height: _height),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 20,
+                sigmaY: 20,
+              ),
+              child: Opacity(
+                opacity: Provider.of<DetailStore>(context).playPositionRate,
+                child: CachedNetworkImage(
+                  imageUrl: afterImageURL,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+          BackdropFilter(
+            filter: ImageFilter.blur(
+              sigmaY: 10,
+              sigmaX: 10,
+            ),
+            child: Container(
+              color: Colors.black.withOpacity(0),
+            ),
+          ),
+          ConstrainedBox(
+            constraints: BoxConstraints.expand(height: _height),
             child: CachedNetworkImage(
               placeholder: (context, url) => const Center(
                 child: CircularProgressIndicator(),
               ),
               imageUrl: beforeImageURL,
-              fit: BoxFit.cover,
+              fit: BoxFit.fitWidth,
             ),
           ),
           ConstrainedBox(
@@ -36,7 +75,7 @@ class ImageContainer extends StatelessWidget {
               opacity: Provider.of<DetailStore>(context).playPositionRate,
               child: CachedNetworkImage(
                 imageUrl: afterImageURL,
-                fit: BoxFit.cover,
+                fit: BoxFit.fitWidth,
                 fadeOutDuration: const Duration(seconds: 1),
                 fadeInDuration: const Duration(seconds: 1),
                 errorWidget: (context, url, dynamic error) => Center(
