@@ -6,5 +6,6 @@ if [ $? -ne 0 ]; then
         exit 1
     fi
 fi
+echo "$result" > flutter_analyze_report.txt
 echo "$result"
 exit 0
