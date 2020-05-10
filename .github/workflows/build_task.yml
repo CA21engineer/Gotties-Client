@@ -23,11 +23,13 @@ jobs:
           channel: 'stable'
       - name: Flutter analyze
         run: ./scripts/analyze.sh
-  danger:
-    needs: [analyze]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+      - name: Cache bundle
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -43,6 +45,7 @@ jobs:
           gem install bundler
           bundle install
           bundle exec danger
+
   build-android:
     if: ${{ !contains(github.event.pull_request.title, '[skip ci]') }}
     runs-on: ubuntu-latest
