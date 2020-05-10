@@ -32,9 +32,9 @@ service cloud.firestore {
     match /category/{categoryID} {
       allow read :if true;
       allow create, update :if request.auth != null
-                          && request.resource.data.size() == 2
-                          && request.resource.data.title != null && request.resource.data.title != ''
-                          && request.resource.data.reading != null && request.resource.data.reading != '';
+                          && request.resource.data.size() >= 1
+                          && request.resource.data.title != null && request.resource.data.title != '';
+                          // && request.resource.data.reading != null && request.resource.data.reading != '';
       allow delete :if false;
     }
 
