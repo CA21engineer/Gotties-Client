@@ -1,0 +1,23 @@
+name: Send Slack message on review requested
+on:
+  pull_request:
+    types: [review_requested]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2.0.1
+      env:
+        SLACK_CHANNEL: gotties-log
+        SLACK_ICON: https://github.com/actions.png?size=48
+        SLACK_COLOR: '#ff0000'
+        SLACK_TITLE: 'Review requested!'
+        SLACK_MESSAGE: |
+          Reviewers are assigned for Pull Request.
+          ${{ github.event.pull_request.url }}
+          
+          ${{ github.event.pull_request.requested_reviewers }}
+        SLACK_USERNAME: Github Actions
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
