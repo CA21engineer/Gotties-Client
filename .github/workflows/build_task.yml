@@ -27,12 +27,15 @@ jobs:
     needs: [analyze]
     runs-on: ubuntu-latest
     steps:
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.1
       - name: Danger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          pwd
-          sudo gem install bundler
+          gem install bundler
           bundle install
           bundle exec danger
   build-android:
