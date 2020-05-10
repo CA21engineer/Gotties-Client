@@ -8,6 +8,7 @@ platform :ios do
         groups: "gotties",
         ipa_path: "./build/...",
         release_notes: "",
+        firebase_cli_path: "./firebase/node_modules/firebase-tools/lib/bin/firebase.js",
         firebase_cli_token: ENV['FIREBASE_CLI_TOKEN'],
     )
   end  

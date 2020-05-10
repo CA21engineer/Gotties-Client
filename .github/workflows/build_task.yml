@@ -47,8 +47,9 @@ jobs:
         run: gem install bundler
       - name: Bundle install
         run: bundle install --path vendor/bundle
-      - name: Install firebase-tools
-        run: npm i -g firebase-tools
+      - name: npm ci
+        run: npm ci
+        working-directory: ./firebase
       - name: Pub get
         run: flutter pub get
       - name: Generate google-services.json
