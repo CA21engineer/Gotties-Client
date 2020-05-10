@@ -39,15 +39,14 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - uses: masa-iwasaki/setup-rbenv@v1
-      - name: Install Ruby
-        run: |
-          eval "$(rbenv init -)"
-          rbenv install -s `cat .ruby-version`
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7
       - name: Setup Bundler
         run: gem install bundler
       - name: Bundle install
-        run: bundle install
+        run: bundle install --path vendor/bundle
       - name: Install firebase-tools
         run: npm i -g firebase-tools
       - name: Pub get
