@@ -22,7 +22,7 @@ platform :android do
     firebase_app_distribution(
         app: ENV['FIREBASE_APP_ID_ANDROID'],
         groups: "gotties",
-        apk_path: "./build/app/outputs/apk/release/app-release.apk",
+        apk_path: ENV['APK_PATH'],
         release_notes: "",
         firebase_cli_path: "./firebase/node_modules/firebase-tools/lib/bin/firebase.js",
         firebase_cli_token: ENV['FIREBASE_CLI_TOKEN'],

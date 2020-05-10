@@ -62,6 +62,7 @@ jobs:
         env:
           FIREBASE_APP_ID_ANDROID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
           FIREBASE_CLI_TOKEN: ${{ secrets.FIREBASE_CLI_TOKEN }}
+          APK_PATH: ./build/app/outputs/apk/release/app-release.apk
         run: bundle exec fastlane android distribute_app
       - name: Create file failure.txt and write 'true' into it
         if: always()
