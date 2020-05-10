@@ -12,12 +12,12 @@ jobs:
       env:
         SLACK_CHANNEL: gotties-log
         SLACK_ICON: https://github.com/actions.png?size=48
-        SLACK_COLOR: '#ff0000'
-        SLACK_TITLE: 'Review requested!'
+        SLACK_COLOR: '#0366D6'
+        SLACK_TITLE: ':bell: Review requested! :bell: '
         SLACK_MESSAGE: |
           Reviewers are assigned for Pull Request.
           ${{ github.event.pull_request.url }}
           
-          ${{ github.event.pull_request.requested_reviewers }}
+          ${{ github.event.pull_request.requested_reviewers.login }}
         SLACK_USERNAME: Github Actions
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
