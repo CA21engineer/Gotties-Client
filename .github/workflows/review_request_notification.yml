@@ -11,12 +11,11 @@ jobs:
       uses: rtCamp/action-slack-notify@v2.0.1
       env:
         SLACK_CHANNEL: gotties-log
-        SLACK_ICON: https://github.com/actions.png?size=48
+        SLACK_ICON: https://pbs.twimg.com/profile_images/1236004510679490561/cp71cFmq_400x400.jpg
         SLACK_COLOR: '#0366D6'
-        SLACK_TITLE: ':bell: Review requested! :bell: '
+        SLACK_TITLE: ':art: こんるる～♪♪ レビュー依頼が来たよ!! :art: '
         SLACK_MESSAGE: |
-          Reviewers are assigned for Pull Request.
-          ${{ github.event.pull_request.url }}
+          ${{ github.event.pull_request.html_url }}
           
           ${{ github.event.pull_request.requested_reviewers.login }}
         SLACK_USERNAME: Github Actions
