@@ -191,7 +191,7 @@ jobs:
           SLACK_MESSAGE: |
             Build failure!
             See more detail to check github.
-            commit -> ${{ steps.set_commitmsg.outputs.commitmsg }}
+            commit -> `${{ steps.set_commitmsg.outputs.commitmsg }}`
           SLACK_USERNAME: Github Actions
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
       # 成功した時のSlackへの通知
@@ -204,6 +204,6 @@ jobs:
           SLACK_TITLE: ':rocket: Build Success :rocket:'
           SLACK_MESSAGE: |
             Build success! yattane!
-            commit -> ${{ steps.set_commitmsg.outputs.commitmsg }}
+            commit -> `${{ steps.set_commitmsg.outputs.commitmsg }}`
           SLACK_USERNAME: Github Actions
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
