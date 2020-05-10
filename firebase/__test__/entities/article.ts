@@ -1,4 +1,5 @@
 import { firestore } from 'firebase';
+export const Timestamp = firestore.Timestamp;
 
 interface Article {
   title: string,
@@ -6,22 +7,9 @@ interface Article {
   before: string,
   after: string,
   user_id: string,
-  category: string,
+  category: firestore.DocumentReference,
   created_at: firestore.Timestamp,
   updated_at: firestore.Timestamp,
-}
-
-export const createEmptyArticle: () => Article = () => {
-  return {
-    title: 'string',
-    body: 'string',
-    before: 'string',
-    after: 'string',
-    user_id: 'string',
-    category: 'string',
-    created_at: new firestore.Timestamp(0, 0),
-    updated_at: new firestore.Timestamp(0, 0),
-  }
 }
 
 export default Article;
