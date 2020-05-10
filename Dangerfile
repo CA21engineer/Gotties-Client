@@ -12,6 +12,16 @@ flutter_lint.only_modified_files = true
 flutter_lint.report_path = "flutter_analyze_report.txt"
 flutter_lint.lint
 
+# Create inline comments to report checkstyle issues which happen only on modified files
+checkstyle_reports.tap do |plugin|
+  plugin.inline_comment=true
+
+  # Report lint warnings
+  Dir.glob("**/checkstyle.xml").each do |xml|
+    plugin.report(xml, modified_files_only: true)
+  end
+end
+
 # LGTM
 if status_report[:errors].length.zero? && status_report[:warnings].length.zero?
     markdown("LGTM :tada:")
