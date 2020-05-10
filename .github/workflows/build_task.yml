@@ -32,7 +32,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gem install bundler
-          bundle install
+          bundle install --path vendor/bundle
           bundle exec danger
   build-android:
     if: ${{ !contains(github.event.pull_request.title, '[skip ci]') }}
