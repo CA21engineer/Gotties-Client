@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gottiesclient/models/entities/article.dart';
-import 'package:gottiesclient/models/entities/category.dart';
 import 'package:gottiesclient/models/stores/stores.dart';
 import 'package:gottiesclient/pages/detail/widgets/content_container.dart';
 import 'package:gottiesclient/pages/detail/widgets/image_container.dart';

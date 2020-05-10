@@ -95,7 +95,7 @@ class ArticleTile extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
                   child: Text(
                     article.title ?? '',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),

@@ -45,7 +45,7 @@ class ArticleList extends StatelessWidget {
                           margin: const EdgeInsets.only(top: 16, left: 8, bottom: 8),
                           child: Text(
                             '${Provider.of<CategoryStore>(context).selectedCategory?.title ?? 'ALL'}',
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ),
                         ArticleTile(

@@ -1,6 +1,5 @@
 import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
-import 'package:gottiesclient/models/models.dart';
 import 'package:gottiesclient/models/stores/post_page_store.dart';
 import 'package:gottiesclient/models/stores/stores.dart';
 import 'package:gottiesclient/pages/home/category/category_list.dart';

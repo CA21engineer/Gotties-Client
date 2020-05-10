@@ -1,10 +1,8 @@
 import 'dart:io';
 
-import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:gottiesclient/models/entities/category.dart';
 import 'package:gottiesclient/models/stores/stores.dart';
-import 'package:gottiesclient/pages/home/category/category_list.dart';
 import 'package:gottiesclient/pages/home/home_page.dart';
 import 'package:gottiesclient/pages/post/input_category.dart';
 import 'package:image_picker/image_picker.dart';
@@ -284,12 +282,8 @@ class _PostPageState extends State<PostPage> {
                           ),
                         ),
                       ),
-                      onPressed: () {
-                        // TODO validate でちゃんとバリデーションをできるようにする
-                        if (_formKey.currentState.validate() || true) {
-                          _confirmPost();
-                        }
-                      },
+                      // TODO _formKey.currentState.validate()でちゃんとバリデーションできるようにする
+                      onPressed: _confirmPost,
                     );
                   }),
                 ),
