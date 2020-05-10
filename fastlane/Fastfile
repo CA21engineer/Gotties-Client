@@ -1,0 +1,31 @@
+require 'dotenv'
+
+default_platform(:ios)
+
+platform :ios do
+  desc 'Distribute iOS App'
+  lane :distribute_app do
+    firebase_app_distribution(
+        app: ENV['FIREBASE_APP_ID_IOS'],
+        groups: "gotties",
+        ipa_path: "./build/...",
+        release_notes: "",
+        firebase_cli_path: "./firebase/node_modules/firebase-tools/lib/bin/firebase.js",
+        firebase_cli_token: ENV['FIREBASE_CLI_TOKEN'],
+    )
+  end  
+end
+
+platform :android do
+  desc 'Distribute Android App'
+  lane :distribute_app do
+    firebase_app_distribution(
+        app: ENV['FIREBASE_APP_ID_ANDROID'],
+        groups: "gotties",
+        apk_path: ENV['APK_PATH'],
+        release_notes: "",
+        firebase_cli_path: "./firebase/node_modules/firebase-tools/lib/bin/firebase.js",
+        firebase_cli_token: ENV['FIREBASE_CLI_TOKEN'],
+    )
+  end
+end

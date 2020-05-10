@@ -47,6 +47,10 @@ jobs:
         run: echo $GOOGLE_SERVICES_BASE64 | base64 --decode --ignore-garbage > $GITHUB_WORKSPACE/android/app/google-services.json
       - name: Android build
         run: flutter build apk --release
+      - uses: actions/upload-artifact@v2
+        with:
+          name: generated_apk
+          path: ./build/app/outputs/apk/release/app-release.apk
       - name: Create file failure.txt and write 'true' into it
         if: always()
         run: echo ${{ job.status == 'failure' }} > failure.txt
@@ -81,6 +85,7 @@ jobs:
         run: echo $GOOGLE_SERVICE_INFO_BASE64 | base64 --decode > $GITHUB_WORKSPACE/ios/Runner/GoogleService-Info.plist
       - name: iOS build
         run: flutter build ios --release --no-codesign
+      # TODO: upload ipa
       - name: Create file failure.txt and write 'true' into it
         if: always()
         run: echo ${{ job.status == 'failure' }} > failure.txt
@@ -90,8 +95,52 @@ jobs:
         with:
           name: pass_file
           path: failure.txt
-  notification:
+  distribute_app:
     needs: [build-android, build-ios]
+    if: ${{ !contains(github.event.pull_request.title, '[skip ci]') }} && always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Cache bundle
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+      - name: Cache npm
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.1
+      - name: Setup Bundler
+        run: gem install bundler
+      - name: Bundle install
+        run: bundle install --path vendor/bundle
+      - name: npm ci
+        run: npm ci
+        working-directory: ./firebase
+      - name: Download apk
+        uses: actions/download-artifact@v2
+        with:
+          name: generated_apk
+      - name: Distribute Android App
+        env:
+          FIREBASE_APP_ID_ANDROID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
+          FIREBASE_CLI_TOKEN: ${{ secrets.FIREBASE_CLI_TOKEN }}
+          APK_PATH: ./app-release.apk
+        run: bundle exec fastlane android distribute_app
+
+  notification:
+    needs: [distribute_app]
     if: ${{ !contains(github.event.pull_request.title, '[skip ci]') }} && always()
     runs-on: ubuntu-latest
     steps:
