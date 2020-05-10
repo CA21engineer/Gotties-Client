@@ -129,7 +129,7 @@ jobs:
         run: npm ci
         working-directory: ./firebase
       - name: Download apk
-        uses: actions-download-artifact@v2
+        uses: actions/download-artifact@v2
         with:
           name: generated_apk
       - name: Distribute Android App
