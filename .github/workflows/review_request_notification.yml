@@ -16,8 +16,11 @@ jobs:
         SLACK_TITLE: ':art: こんるる～♪♪ レビュー依頼が来たよ!! :art: '
         SLACK_MESSAGE: |
           *${{ github.event.pull_request.title }}*
+          
+          *Pull Request URL*
           ${{ github.event.pull_request.html_url }}
           
-          ${{ join(github.event.pull_request.requested_reviewers.*.login, ', ') }}
+          *Reviewers*
+          `${{ join(github.event.pull_request.requested_reviewers.*.login, ', ') }}`
         SLACK_USERNAME: 鈴原るる
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
