@@ -12,4 +12,8 @@ fail("fit left in tests") if `grep -r fit specs/ `.length > 1
 flutter_lint.report_path = "flutter_analyze_report.txt"
 flutter_lint.lint
 
-lgtm.check_lgtm
+# LGTM
+if status_report[:errors].length.zero? && status_report[:warnings].length.zero?
+    markdown("LGTM :tada:")
+    lgtm.check_lgtm
+end
