@@ -10,3 +10,10 @@ firebase emulators:start --only firestore
 npm test
 ```
 
+
+## Firestore セキュリティルールデプロイ
+`firebase login` 後に
+
+```sh
+firebase deploy --only firestore:rules
+```
