@@ -5,7 +5,7 @@ describe('category document test', () => {
     await firebase.loadFirestoreRules({ projectId: projectID, rules })
   });
 
-  beforeEach(async () => {
+  afterEach(async () => {
     await firebase.clearFirestoreData({ projectId: projectID })
   });
 
@@ -15,7 +15,7 @@ describe('category document test', () => {
 
   it('認証してないユーザーでもcategoryを取得できる', async () => {
     const db = authenticatedApp(null);
-    await firebase.assertSucceeds((await db.collection('category').get()).docs);
+    firebase.assertSucceeds((await db.collection('category').get()).docs);
   });
 
   it('認証ユーザーでかつタイトルがあれば登録できる', async () => {
@@ -24,7 +24,7 @@ describe('category document test', () => {
       email: '',
     }
     const db = authenticatedApp(auth);
-    await firebase.assertSucceeds(db.collection('category').add({
+    firebase.assertSucceeds(db.collection('category').add({
       title: 'title',
     }));
   });
@@ -35,12 +35,14 @@ describe('category document test', () => {
       email: '',
     }
     const db = authenticatedApp(auth);
-    await firebase.assertFails(db.collection('category').add({}));
+    firebase.assertFails(db.collection('category').add({}));
   });
 
   it('認証ユーザーでない場合登録できない', async () => {
     const db = authenticatedApp(null);
-    await firebase.assertFails(db.collection('category').add({}));
+    firebase.assertFails(db.collection('category').add({
+      title: 'title',
+    }));
   });
   
   it('認証ユーザーでかつタイトルがあれば更新できる', async () => {
@@ -54,8 +56,9 @@ describe('category document test', () => {
       reading: 're',
     });
     const db = authenticatedApp(auth);
-    await firebase.assertSucceeds(db.collection('category').doc(category.id).update({
-      title: 'title_updated',
+    await db.collection('category').doc(category.id).update({});
+    firebase.assertSucceeds(db.collection('category').doc(category.id).update({
+      title: 'a'
     }));
   });
 
@@ -65,7 +68,7 @@ describe('category document test', () => {
       title: 'title',
     });
     const db = authenticatedApp(null);
-    await firebase.assertFails(db.collection('category').doc(category.id).update({
+    firebase.assertFails(db.collection('category').doc(category.id).update({
       title: 'title_updated',
       reading: 'reading',
     }));
@@ -78,11 +81,10 @@ describe('category document test', () => {
       email: '',
     }
     const category = await admin.collection('category').add({
-      title: 'title',
+      title: 'title'
     });
     const db = authenticatedApp(auth);
-    await firebase.assertFails(db.collection('category').doc(category.id).update({
-      reading: 'reading',
+    firebase.assertFails(db.collection('category').doc(category.id).update({
     }));
   });
 
@@ -95,7 +97,7 @@ describe('category document test', () => {
     const category = await admin.collection('category').add({
       title: 'title',
     });
-    const db = authenticatedApp(auth);
-    await firebase.assertFails(db.collection('category').doc(category.id).delete());
+    const db = authenticatedApp(null);
+    firebase.assertFails(db.collection('category').doc(category.id).delete());
   });
 });

@@ -2,8 +2,8 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /articles/{articleID} {
-      allow read :if true;
-      allow create :if request.auth != null 
+      allow read: if true;
+      allow create: if request.auth != null 
                     && request.resource.data.title != null
                     && request.resource.data.before != null
                     && request.resource.data.after != null
@@ -11,7 +11,7 @@ service cloud.firestore {
                     && exists(/$(request.resource.data.category))
                     && request.resource.data.created_at is timestamp
                     && request.resource.data.updated_at is timestamp;
-      allow update :if request.auth.uid == resource.data.user_id
+      allow update: if request.auth.uid == resource.data.user_id
                     && request.auth != null 
                     && request.resource.data.title != null && request.resource.data.title != ''
                     && request.resource.data.before != null
@@ -19,35 +19,34 @@ service cloud.firestore {
                     && exists(/databases/$(database)/documents/$(request.resource.data.category))
                     && request.resource.data.created_at is timestamp
                     && request.resource.data.updated_at is timestamp;
-      allow delete :if request.auth.uid == resource.data.user_id;
+      allow delete: if request.auth.uid == resource.data.user_id;
 
       match /like_users/{userID} {
-        allow read :if true;
-        allow create :if request.auth != null
-        allow update :if false;
-        allow delete :if request.auth.uid == userID;
+        allow read: if true;
+        allow create: if request.auth != null
+        allow update: if false;
+        allow delete: if request.auth.uid == userID;
       }
     }
 
     match /category/{categoryID} {
-      allow read :if true;
-      allow create, update :if request.auth != null
-                          && request.resource.data.size() >= 1
+      allow read: if true;
+      allow create, update: if request.auth != null
+                          && request.resource.data.size() > 0
                           && request.resource.data.title != null && request.resource.data.title != '';
-                          // && request.resource.data.reading != null && request.resource.data.reading != '';
-      allow delete :if false;
+      allow delete: if false;
     }
 
     match /users/{userID} {
-      allow read :if request.auth.uid == userID;
-      allow create, update :if request.auth != null
-      allow delete :if request.auth.uid == userID;
+      allow read: if request.auth.uid == userID;
+      allow create, update: if request.auth != null
+      allow delete: if request.auth.uid == userID;
 
       match /like_articles/{articleId} {
-        allow read :if request.auth.uid == userID;
-        allow create :if request.auth.uid == userID
-        allow update :if false;
-        allow delete :if request.auth.uid == userID;
+        allow read: if request.auth.uid == userID;
+        allow create: if request.auth.uid == userID
+        allow update: if false;
+        allow delete: if request.auth.uid == userID;
       }
     }
   }

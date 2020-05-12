@@ -39,6 +39,6 @@ describe('articles document test', () => {
       created_at: new Timestamp(0, 0),
       updated_at: new Timestamp(0, 0),
     }
-    await firebase.assertSucceeds(db.collection('articles').add(article));
+    firebase.assertSucceeds(db.collection('articles').doc().set(article));
   });
 });
