@@ -1,4 +1,4 @@
-import { firebase, projectID, rules, authenticatedApp, Auth } from './firestore_test.util';
+import { firebase, projectID, rules, authenticatedApp, Auth, adminApp } from './firestore_test.util';
 import Article, { Timestamp } from './entities/article';
 
 describe('articles document test', () => {
@@ -39,6 +39,31 @@ describe('articles document test', () => {
       created_at: new Timestamp(0, 0),
       updated_at: new Timestamp(0, 0),
     }
-    firebase.assertSucceeds(db.collection('articles').doc().set(article));
+    firebase.assertSucceeds(db.collection('articles').add(article));
+  });
+
+  test('カテゴリーがないと登録できない', async () => {
+    const admin = adminApp();
+    const auth: Auth = {
+      uid: 'aaa',
+      email: 'aaa@example.com',
+    }
+    const db = authenticatedApp(auth);
+    const category = await admin.collection('category').add({
+      title: 'category',
+      reading: 'かてごりー'
+    });
+    category.delete();
+    const article: Article = {
+      title: 'title',
+      body: 'body',
+      before: 'before',
+      after: 'after',
+      user_id: 'user_id',
+      category: category,
+      created_at: new Timestamp(0, 0),
+      updated_at: new Timestamp(0, 0),
+    }
+    firebase.assertFails(db.collection('articles').add(article));
   });
 });
