@@ -38,13 +38,7 @@ class HomePage extends StatelessWidget {
         children: <Widget>[
           ArticleList(
             articles: Provider.of<ArticleStore>(context).articles,
-            onTapTile: (article) => Navigator.push<void>(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => DetailPage(
-                        article: article,
-                      )),
-            ),
+            onTapTile: (article) => Navigator.pushNamed(context, '/detail', arguments: article),
             onRefresh: () async {
               await Provider.of<ArticleStore>(context, listen: false).getArticles();
               controller.refreshCompleted();
@@ -54,10 +48,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.push<void>(
-          context,
-          MaterialPageRoute(builder: (context) => PostPage()),
-        ),
+        onPressed: () => Navigator.pushNamed(context, '/post'),
         child: Icon(Icons.add),
       ),
     );
