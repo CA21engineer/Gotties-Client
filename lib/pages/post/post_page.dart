@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gottiesclient/models/entities/category.dart';
 import 'package:gottiesclient/models/stores/stores.dart';
-import 'package:gottiesclient/pages/home/home_page.dart';
 import 'package:gottiesclient/pages/post/input_category.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
