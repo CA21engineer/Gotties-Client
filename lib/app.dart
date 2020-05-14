@@ -48,8 +48,6 @@ class MyApp extends StatelessWidget {
                 primarySwatch: Colors.red,
                 fontFamily: 'NotoSansJP-Regular',
               ),
-              home: HomePage(),
-              initialRoute: '/',
               routes: <String, WidgetBuilder>{
                 '/': (BuildContext context) => HomePage(),
                 '/detail': (BuildContext context) => const DetailPage(),

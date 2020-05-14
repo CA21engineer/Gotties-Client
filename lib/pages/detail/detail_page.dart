@@ -8,10 +8,12 @@ import 'package:provider/provider.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({this.article});
+
   final Article article;
 
   @override
   Widget build(BuildContext context) {
+    final Article article = ModalRoute.of(context).settings.arguments as Article;
     return ChangeNotifierProvider<DetailStore>(
       create: (context) => DetailStore(),
       child: Scaffold(
