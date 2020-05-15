@@ -42,4 +42,5 @@ jobs:
         time: '10s'
     - name: npm test
       run: npm test
- 
+    - name: deploy rule
+      run: npx firebase deploy --only firestore:rules --token ${{ secret.FIREBASE_CLI_TOKEN }} 
