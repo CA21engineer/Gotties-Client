@@ -368,32 +368,32 @@ describe('articles document test', () => {
   //   }));
   // });
 
-  test('ログインユーザーのuidとarticle のuser_idが一致する時のみ削除できる', async () => {
-    const auth: Auth = {
-      uid: 'aaa',
-      email: 'aaa@example.com',
-    };
-    const admin = adminApp();
-    const db = authenticatedApp(auth);
+  // test('ログインユーザーのuidとarticle のuser_idが一致する時のみ削除できる', async () => {
+  //   const auth: Auth = {
+  //     uid: 'aaa',
+  //     email: 'aaa@example.com',
+  //   };
+  //   const admin = adminApp();
+  //   const db = authenticatedApp(auth);
 
-    const category = await admin.collection('category').add({
-      title: 'category',
-      reading: 'かてごりー',
-    });
-    const article: Article = {
-      title: 'title',
-      body: 'body',
-      before: 'before',
-      after: 'after',
-      user_id: auth.uid + 'uid',
-      category: category,
-      created_at: new Timestamp(0, 0),
-      updated_at: new Timestamp(0, 0),
-    }
-    const addedArticle = await admin.collection('articles').add(article);
+  //   const category = await admin.collection('category').add({
+  //     title: 'category',
+  //     reading: 'かてごりー',
+  //   });
+  //   const article: Article = {
+  //     title: 'title',
+  //     body: 'body',
+  //     before: 'before',
+  //     after: 'after',
+  //     user_id: auth.uid + 'uid',
+  //     category: category,
+  //     created_at: new Timestamp(0, 0),
+  //     updated_at: new Timestamp(0, 0),
+  //   }
+  //   const addedArticle = await admin.collection('articles').add(article);
   
-    firebase.assertSucceeds(db.collection('articles').doc(addedArticle.id).delete());
-  });
+  //   firebase.assertSucceeds(db.collection('articles').doc(addedArticle.id).delete());
+  // });
 });
 
 // async function updateTest(auth: Auth | undefined, updateData: any, expectSuccess: boolean) {
