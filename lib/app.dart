@@ -6,6 +6,7 @@ import 'package:gottiesclient/pages/detail/detail_page.dart';
 import 'package:gottiesclient/pages/home/home_page.dart';
 import 'package:gottiesclient/pages/login/login_page.dart';
 import 'package:gottiesclient/pages/post/post_page.dart';
+import 'package:gottiesclient/pages/profile/profile_page.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
@@ -69,6 +70,11 @@ class MyApp extends StatelessWidget {
                   case '/login':
                     return MaterialPageRoute<void>(
                       builder: (_) => LoginPage(),
+                      fullscreenDialog: true,
+                    );
+                  case '/profile':
+                    return MaterialPageRoute<void>(
+                      builder: (_) => ProfilePage(),
                       fullscreenDialog: true,
                     );
                   default:
