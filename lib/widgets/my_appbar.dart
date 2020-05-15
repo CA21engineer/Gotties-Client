@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gottiesclient/models/stores/stores.dart';
-import 'package:gottiesclient/pages/login/login_page.dart';
 import 'package:gottiesclient/util/typedefs.dart';
 import 'package:gottiesclient/widgets/search_text_field.dart';
 import 'package:provider/provider.dart';
@@ -42,13 +41,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             onPressed: () {
-              Navigator.push<void>(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginPage(),
-                  fullscreenDialog: true,
-                ),
-              );
+              Navigator.pushNamed(context, '/login');
             },
           ),
         )
