@@ -9,7 +9,7 @@ platform :ios do
         app: ENV['FIREBASE_APP_ID_IOS'],
         groups: "gotties",
         ipa_path: "./build/...",
-        release_notes: "",
+        release_notes: ENV['RELEASE_NOTE'],
         firebase_cli_path: "./firebase/node_modules/firebase-tools/lib/bin/firebase.js",
         firebase_cli_token: ENV['FIREBASE_CLI_TOKEN'],
     )
@@ -23,7 +23,7 @@ platform :android do
         app: ENV['FIREBASE_APP_ID_ANDROID'],
         groups: "gotties",
         apk_path: ENV['APK_PATH'],
-        release_notes: "",
+        release_notes: ENV['RELEASE_NOTE'],
         firebase_cli_path: "./firebase/node_modules/firebase-tools/lib/bin/firebase.js",
         firebase_cli_token: ENV['FIREBASE_CLI_TOKEN'],
     )
