@@ -4,21 +4,20 @@ service cloud.firestore {
     match /articles/{articleID} {
       allow read: if true;
       allow create: if request.auth != null 
-                    && request.resource.data.title != null
+                    && request.resource.data.title != null && request.resource.data.title != ''
                     && request.resource.data.before != null
                     && request.resource.data.after != null
                     && request.resource.data.user_id != null
                     && exists(/$(request.resource.data.category))
-                    && request.resource.data.created_at is timestamp
-                    && request.resource.data.updated_at is timestamp;
+                    && request.resource.data.created_at != null && request.resource.data.created_at is timestamp
+                    && request.resource.data.updated_at != null && request.resource.data.updated_at is timestamp;
       allow update: if request.auth.uid == resource.data.user_id
-                    && request.auth != null 
-                    && request.resource.data.title != null && request.resource.data.title != ''
-                    && request.resource.data.before != null
-                    && request.resource.data.after != null
-                    && exists(/databases/$(database)/documents/$(request.resource.data.category))
-                    && request.resource.data.created_at is timestamp
-                    && request.resource.data.updated_at is timestamp;
+                    && request.auth != null
+                    && (isUndefined(request.resource.data, 'title') || request.resource.data.title != '')
+                    && (isUndefined(request.resource.data, 'before') || request.resource.data.before != '')
+                    && (isUndefined(request.resource.data, 'after') || request.resource.data.after != '')
+                    && (isUndefined(request.resource.data, 'category') || exists(/databases/$(database)/documents/$(request.resource.data.category)))
+                    && request.resource.data.updated_at != null && request.resource.data.updated_at is timestamp;
       allow delete: if request.auth.uid == resource.data.user_id;
 
       match /like_users/{userID} {
@@ -50,4 +49,8 @@ service cloud.firestore {
       }
     }
   }
+}
+
+function isUndefined(data, field) {
+  return !data.keys().hasAll([field]);
 }
