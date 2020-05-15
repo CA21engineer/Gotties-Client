@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({this.article});
+
   final Article article;
 
   @override

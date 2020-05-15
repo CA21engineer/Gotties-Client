@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gottiesclient/models/models.dart';
 import 'package:gottiesclient/models/stores/post_page_store.dart';
 import 'package:gottiesclient/models/stores/stores.dart';
+import 'package:gottiesclient/pages/detail/detail_page.dart';
 import 'package:gottiesclient/pages/home/home_page.dart';
+import 'package:gottiesclient/pages/post/post_page.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
@@ -46,7 +48,14 @@ class MyApp extends StatelessWidget {
                 primarySwatch: Colors.red,
                 fontFamily: 'NotoSansJP-Regular',
               ),
-              home: HomePage(),
+              routes: <String, WidgetBuilder>{
+                '/': (BuildContext context) => HomePage(),
+                '/detail': (BuildContext context) {
+                  final article = ModalRoute.of(context).settings.arguments as Article;
+                  return DetailPage(article: article);
+                },
+                '/post': (BuildContext context) => PostPage()
+              },
             ),
           );
         },

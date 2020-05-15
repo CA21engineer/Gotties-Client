@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gottiesclient/models/entities/category.dart';
 import 'package:gottiesclient/models/stores/stores.dart';
-import 'package:gottiesclient/pages/home/home_page.dart';
 import 'package:gottiesclient/pages/post/input_category.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -74,10 +73,7 @@ class _PostPageState extends State<PostPage> {
                     actions: <Widget>[
                       FlatButton(
                         child: const Text('OK'),
-                        onPressed: () {
-                          Navigator.pushAndRemoveUntil<dynamic>(
-                              context, MaterialPageRoute<dynamic>(builder: (_) => HomePage()), (_) => false);
-                        },
+                        onPressed: () => Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false),
                       ),
                     ],
                     shape: RoundedRectangleBorder(
@@ -127,9 +123,9 @@ class _PostPageState extends State<PostPage> {
     super.didChangeDependencies();
     selectedCategory = Provider.of<CategoryStore>(context).selectedCategory;
   }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('投稿'),
