@@ -53,7 +53,7 @@ describe('articles document test', () => {
       title: 'category',
       reading: 'かてごりー'
     });
-    category.delete();
+    await category.delete();
     const article: Article = {
       title: 'title',
       body: 'body',
