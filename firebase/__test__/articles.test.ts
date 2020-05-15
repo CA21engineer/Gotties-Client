@@ -1,4 +1,5 @@
-import { firebase, projectID, rules, authenticatedApp, Auth, adminApp } from './firestore_test.util';
+import * as firebase from '@firebase/testing';
+import { projectID, rules, authenticatedApp, Auth, adminApp } from './firestore_test.util';
 import Article, { Timestamp } from './entities/article';
 
 describe('articles document test', () => {
@@ -15,8 +16,8 @@ describe('articles document test', () => {
   });
 
   test('認証してないユーザーでもarticleを取得できる', async () => {
-    const db = authenticatedApp(null);
-    firebase.assertSucceeds((await db.collection('articles').get()).docs);
+    const db = authenticatedApp(undefined);
+    firebase.assertSucceeds(db.collection('articles').get());
   });
 
   test('新規データが登録できる', async () => {

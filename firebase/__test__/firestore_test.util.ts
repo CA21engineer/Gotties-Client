@@ -1,6 +1,6 @@
 import { firestore } from 'firebase';
-const fs = require('fs');
-export const firebase = require('@firebase/testing');
+import fs from 'fs';
+import * as firebase from '@firebase/testing';
 
 export interface Auth {
   uid: string,
@@ -10,7 +10,7 @@ export interface Auth {
 export const projectID = 'gotties-homehack';
 const databaseName = 'gotties-homehack';
 export const rules = fs.readFileSync('./firestore.rules', 'utf8');
-export const authenticatedApp: (auth: Auth | null) => firestore.Firestore = (auth: Auth | null) => {
+export const authenticatedApp: (auth: Auth | undefined) => firestore.Firestore = (auth) => {
   return firebase.initializeTestApp({ projectId: projectID, databaseName, auth }).firestore();
 }
 export const adminApp: () => firestore.Firestore = () => firebase.initializeAdminApp({ projectId: projectID }).firestore();

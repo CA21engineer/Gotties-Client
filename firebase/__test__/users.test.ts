@@ -1,4 +1,5 @@
-import { firebase, projectID, rules, authenticatedApp, adminApp, Auth } from './firestore_test.util';
+import * as firebase from '@firebase/testing';
+import { projectID, rules, authenticatedApp, adminApp, Auth } from './firestore_test.util';
 
 describe('articles document test', () => {
   beforeAll(async () => {
@@ -76,7 +77,7 @@ describe('articles document test', () => {
         email: '',
       }
       const db = authenticatedApp(auth);
-      firebase.assertSucceeds((await db.collection('users').doc(user.id).collection('like_articles').get()).docs);
+      firebase.assertSucceeds((db.collection('users').doc(user.id).collection('like_articles').get()));
     });
 
     test('ログインユーザーのドキュメントのサブコレクションでない場合読めない', async () => {

@@ -1,4 +1,5 @@
-import { firebase, projectID, rules, authenticatedApp, Auth, adminApp } from './firestore_test.util';
+import * as firebase from '@firebase/testing';
+import { projectID, rules, authenticatedApp, Auth, adminApp } from './firestore_test.util';
 
 describe('category document test', () => {
   beforeAll(async () => {
@@ -14,8 +15,8 @@ describe('category document test', () => {
   });
 
   it('認証してないユーザーでもcategoryを取得できる', async () => {
-    const db = authenticatedApp(null);
-    firebase.assertSucceeds((await db.collection('category').get()).docs);
+    const db = authenticatedApp(undefined);
+    firebase.assertSucceeds((db.collection('category').get()));
   });
 
   it('認証ユーザーでかつタイトルがあれば登録できる', async () => {
@@ -39,7 +40,7 @@ describe('category document test', () => {
   });
 
   it('認証ユーザーでない場合登録できない', async () => {
-    const db = authenticatedApp(null);
+    const db = authenticatedApp(undefined);
     firebase.assertFails(db.collection('category').add({
       title: 'title',
     }));
@@ -67,7 +68,7 @@ describe('category document test', () => {
     const category = await admin.collection('category').add({
       title: 'title',
     });
-    const db = authenticatedApp(null);
+    const db = authenticatedApp(undefined);
     firebase.assertFails(db.collection('category').doc(category.id).update({
       title: 'title_updated',
       reading: 'reading',
@@ -97,7 +98,7 @@ describe('category document test', () => {
     const category = await admin.collection('category').add({
       title: 'title',
     });
-    const db = authenticatedApp(null);
+    const db = authenticatedApp(undefined);
     firebase.assertFails(db.collection('category').doc(category.id).delete());
   });
 });
