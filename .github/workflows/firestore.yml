@@ -43,4 +43,4 @@ jobs:
     - name: npm test
       run: npm test
     - name: deploy rule
-      run: npx firebase deploy --only firestore:rules --token ${{ secret.FIREBASE_CLI_TOKEN }} 
+      run: npx firebase deploy --only firestore:rules --token ${{ secrets.FIREBASE_CLI_TOKEN }} 
