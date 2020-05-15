@@ -50,7 +50,10 @@ class MyApp extends StatelessWidget {
               ),
               routes: <String, WidgetBuilder>{
                 '/': (BuildContext context) => HomePage(),
-                '/detail': (BuildContext context) => const DetailPage(),
+                '/detail': (BuildContext context) {
+                  final article = ModalRoute.of(context).settings.arguments as Article;
+                  return DetailPage(article: article);
+                },
                 '/post': (BuildContext context) => PostPage()
               },
             ),

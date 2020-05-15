@@ -13,7 +13,6 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Article article = ModalRoute.of(context).settings.arguments as Article;
     return ChangeNotifierProvider<DetailStore>(
       create: (context) => DetailStore(),
       child: Scaffold(
