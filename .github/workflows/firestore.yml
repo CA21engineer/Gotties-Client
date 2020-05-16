@@ -40,6 +40,8 @@ jobs:
       uses: jakejarvis/wait-action@master
       with:
         time: '10s'
-    - name: npm test
-      run: npm test
- 
+        #    - name: npm test
+        #      run: npm test
+    - name: deploy rule
+      if: github.event_name == 'push'
+      run: npx firebase deploy --only firestore:rules --token ${{ secrets.FIREBASE_CLI_TOKEN }} 
