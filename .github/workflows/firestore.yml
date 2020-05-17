@@ -44,4 +44,4 @@ jobs:
         #      run: npm test
     - name: deploy rule
       if: github.event_name == 'push'
-      run: npx firebase deploy --only firestore:rules --token ${{ secrets.FIREBASE_CLI_TOKEN }} 
+      run: npx firebase deploy --only firestore:rules --token ${{ secrets.FIREBASE_CLI_TOKEN }} --project gotties-homehack
