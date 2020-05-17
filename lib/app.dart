@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
                   case '/detail':
                     return MaterialPageRoute<void>(
                       builder: (BuildContext context) {
-                        final article = ModalRoute.of(context).settings.arguments as Article;
+                        final article = settings.arguments as Article;
                         return DetailPage(article: article);
                       },
                     );
