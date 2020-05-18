@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:gottiesclient/util/typedefs.dart';
 
 class IconButtonWithSplash extends StatelessWidget {
-  const IconButtonWithSplash(
-      {@required this.width,
-      @required this.height,
-      @required this.icon,
-      this.splashColor = Colors.grey,
-      this.onTapButton});
+  const IconButtonWithSplash({
+    @required this.width,
+    @required this.height,
+    @required this.icon,
+    this.splashColor = Colors.grey,
+    this.onTapButton,
+  });
 
   final double width;
   final double height;
