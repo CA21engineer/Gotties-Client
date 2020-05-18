@@ -24,8 +24,8 @@ class IconButtonWithSplash extends StatelessWidget {
         child: InkWell(
           splashColor: splashColor,
           child: SizedBox(
-            width: height,
-            height: width,
+            width: width,
+            height: height,
             child: icon,
           ),
           onTap: onTapButton,
