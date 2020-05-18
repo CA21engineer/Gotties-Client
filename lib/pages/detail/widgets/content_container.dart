@@ -4,6 +4,7 @@ import 'package:gottiesclient/models/entities/article.dart';
 import 'package:gottiesclient/models/stores/article_store.dart';
 import 'package:gottiesclient/models/stores/share_store.dart';
 import 'package:gottiesclient/util/converter.dart';
+import 'package:gottiesclient/widgets/icon_button_with_splash.dart';
 import 'package:provider/provider.dart';
 
 class ContentContainer extends StatelessWidget {
@@ -100,68 +101,44 @@ class ContentContainer extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      ClipOval(
-                        child: Material(
-                          color: Colors.white.withOpacity(0),
-                          child: InkWell(
-                            splashColor: Colors.grey,
-                            child: SizedBox(
-                              width: 45,
-                              height: 45,
-                              child: Icon(
-                                Provider.of<ArticleStore>(context).isLike(article.id)
-                                    ? Icons.favorite
-                                    : Icons.favorite_border,
-                                color: Colors.red,
-                              ),
-                            ),
-                            onTap: () {
-                              final store = Provider.of<ArticleStore>(context, listen: false);
-                              final isLike = store.isLike(article.id);
-                              if (isLike) {
-                                store.unlikeArticle(article.id);
-                              } else {
-                                store.likeArticle(article.id);
-                              }
-                            },
-                          ),
+                      IconButtonWithSplash(
+                        width: 45,
+                        height: 45,
+                        icon: Icon(
+                          Provider.of<ArticleStore>(context).isLike(article.id)
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          color: Colors.red,
                         ),
+                        onTapButton: () {
+                          final store = Provider.of<ArticleStore>(context, listen: false);
+                          final isLike = store.isLike(article.id);
+                          if (isLike) {
+                            store.unlikeArticle(article.id);
+                          } else {
+                            store.likeArticle(article.id);
+                          }
+                        },
                       ),
-                      ClipOval(
-                        child: Material(
-                          color: Colors.white.withOpacity(0),
-                          child: InkWell(
-                            splashColor: Colors.grey,
-                            child: SizedBox(
-                              width: 45,
-                              height: 45,
-                              child: Icon(Icons.share),
-                            ),
-                            onTap: () => Provider.of<ShareStore>(context, listen: false).share(
-                              article.title,
-                              article.body,
-                              article.beforeImageURL,
-                            ),
-                          ),
+                      IconButtonWithSplash(
+                        width: 45,
+                        height: 45,
+                        icon: Icon(Icons.share),
+                        onTapButton: () => Provider.of<ShareStore>(context, listen: false).share(
+                          article.title,
+                          article.body,
+                          article.beforeImageURL,
                         ),
                       ),
                       if (Provider.of<ArticleStore>(context).isMyArticle(article))
-                        ClipOval(
-                          child: Material(
-                            color: Colors.white.withOpacity(0),
-                            child: InkWell(
-                              splashColor: Colors.grey,
-                              child: SizedBox(
-                                width: 45,
-                                height: 45,
-                                child: Icon(Icons.delete),
-                              ),
-                              onTap: () {
-                                Provider.of<ArticleStore>(context, listen: false).deleteArticle(article);
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ),
+                        IconButtonWithSplash(
+                          width: 45,
+                          height: 45,
+                          icon: Icon(Icons.delete),
+                          onTapButton: () {
+                            Provider.of<ArticleStore>(context, listen: false).deleteArticle(article);
+                            Navigator.pop(context);
+                          },
                         ),
                     ],
                   ),
