@@ -6,15 +6,15 @@ import 'package:gottiesclient/models/models.dart';
 import 'package:gottiesclient/models/stores/stores.dart';
 
 class ArticleStore extends ChangeNotifier {
-  ArticleStore(LoginStore loginStore, BaseRepository repository)
-      : assert(repository != null),
+  ArticleStore(LoginStore loginStore, BaseClient client)
+      : assert(client != null),
         assert(loginStore != null),
         _loginStore = loginStore,
-        _repository = repository {
+        _client = client {
     getArticles();
   }
 
-  final BaseRepository _repository;
+  final BaseClient _client;
   final LoginStore _loginStore;
   List<Article> _allArticles;
   List<Article> articles;
@@ -23,7 +23,7 @@ class ArticleStore extends ChangeNotifier {
 
   Future<void> getArticles() async {
     try {
-      _allArticles = await _repository.getArticles();
+      _allArticles = await _client.getArticles();
       articles = _allArticles;
       notifyListeners();
     } on Exception catch (e) {
@@ -36,7 +36,7 @@ class ArticleStore extends ChangeNotifier {
       if (!_loginStore.isLoggedIn) {
         await _loginStore.loginAnonymously();
       }
-      await _repository.postArticle(title, before, after, body, categoryId, userID ?? '');
+      await _client.postArticle(title, before, after, body, categoryId, userID ?? '');
       notifyListeners();
     } on Exception catch (e) {
       debugPrint(e.toString());
@@ -48,7 +48,7 @@ class ArticleStore extends ChangeNotifier {
       if (userID == article.userID) {
         throw UnauthorisedException();
       }
-      await _repository.deleteArticle(article.id, userID);
+      await _client.deleteArticle(article.id, userID);
       _allArticles = _allArticles.where((element) => element.id != article.id).toList();
       articles = articles.where((element) => element.id != article.id).toList();
       notifyListeners();
@@ -62,7 +62,7 @@ class ArticleStore extends ChangeNotifier {
       if (userID == null) {
         throw UnauthorisedException();
       }
-      await _repository.likeArticle(userID, articleID);
+      await _client.likeArticle(userID, articleID);
       _allArticles.forEach(
         (article) {
           if (article.id == articleID) {
@@ -90,7 +90,7 @@ class ArticleStore extends ChangeNotifier {
       if (userID == null) {
         throw UnauthorisedException();
       }
-      await _repository.unlikeArticle(userID, articleID);
+      await _client.unlikeArticle(userID, articleID);
       _allArticles.forEach((article) {
         if (article.id == articleID) {
           article.likeUserIds.remove(userID);

@@ -3,13 +3,13 @@ import 'package:gottiesclient/models/entities/entities.dart';
 import 'package:gottiesclient/models/models.dart';
 
 class CategoryStore extends ChangeNotifier {
-  CategoryStore(BaseRepository repository)
-      : assert(repository != null),
-        _repository = repository {
+  CategoryStore(BaseClient client)
+      : assert(client != null),
+        _client = client {
     getCategories();
   }
 
-  final BaseRepository _repository;
+  final BaseClient _client;
   List<Category> _categories;
   List<Category> searchedCategories;
 
@@ -18,7 +18,7 @@ class CategoryStore extends ChangeNotifier {
 
   Future<void> getCategories() async {
     try {
-      _categories = await _repository.getCategories();
+      _categories = await _client.getCategories();
       searchedCategories = _categories;
       notifyListeners();
     } on Exception catch (e) {

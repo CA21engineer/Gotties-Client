@@ -6,7 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:gottiesclient/models/models.dart';
 import 'package:uuid/uuid.dart';
 
-class FirestoreRepository implements BaseRepository {
+class FirestoreClient implements BaseClient {
   final Firestore _firestore = Firestore.instance;
   final Uuid _uuid = Uuid();
 
