@@ -5,8 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class ProfileHeader extends StatelessWidget {
+  LoginStore _loginStore;
+
   @override
   Widget build(BuildContext context) {
+    _loginStore = Provider.of<LoginStore>(context);
+
     return Column(
       children: <Widget>[
         Container(
@@ -32,9 +36,52 @@ class ProfileHeader extends StatelessWidget {
                 ),
               ),
               IconButton(
-                icon: Icon(Icons.share),
+                icon: Icon(Icons.more_horiz),
                 color: const Color(0xfffefefe),
-                onPressed: () {},
+                onPressed: () async {
+                  await showModalBottomSheet<void>(
+                    context: context,
+                    builder: (BuildContext context) => Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        ListTile(
+                          leading: Icon(Icons.share),
+                          title: const Text('共有'),
+                          onTap: () {
+                            // TODO プロフィールを共有
+                          },
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.exit_to_app),
+                          title: const Text('ログアウト'),
+                          onTap: () {
+                            showDialog<void>(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('確認'),
+                                content: const Text('ログアウトします。よろしいですか？'),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: const Text('キャンセル'),
+                                    onPressed: () => Navigator.pop(context),
+                                  ),
+                                  FlatButton(
+                                    child: const Text('OK'),
+                                    onPressed: () {
+                                      _loginStore.logout();
+                                      Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
               )
             ],
           ),

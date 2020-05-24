@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gottiesclient/models/models.dart';
 import 'package:gottiesclient/models/stores/stores.dart';
+import 'package:gottiesclient/pages/profile/widgets/profile_page_view.dart';
 import 'package:provider/provider.dart';
 
 class ProfileBody extends StatelessWidget {
@@ -9,6 +10,7 @@ class ProfileBody extends StatelessWidget {
     initialPage: 1,
     viewportFraction: 0.8,
   );
+
   @override
   Widget build(BuildContext context) {
     final List<Article> articles = Provider.of<ArticleStore>(context).articles;
@@ -44,21 +46,8 @@ class ProfileBody extends StatelessWidget {
           ),
           Container(
             height: 250,
-            child: PageView(
-              controller: controller,
-              children: articles
-                  .map((e) => Card(
-                        child: Column(
-                          children: <Widget>[
-                            Image.network(
-                              e.beforeImageURL,
-                              height: 200,
-                            ),
-                            Text(e.title),
-                          ],
-                        ),
-                      ))
-                  .toList(),
+            child: ProfilePageView(
+              articles: articles,
             ),
           ),
           Container(
@@ -75,25 +64,8 @@ class ProfileBody extends StatelessWidget {
           ),
           Container(
             height: 250,
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: Card(
-                    child: Column(
-                      children: <Widget>[
-                        Image.network(
-                          articles[index].beforeImageURL,
-                          height: 200,
-                        ),
-                        Text(articles[index].title),
-                      ],
-                    ),
-                  ),
-                );
-              },
-              itemCount: articles.length,
-              scrollDirection: Axis.horizontal,
+            child: ProfilePageView(
+              articles: articles,
             ),
           ),
         ],
