@@ -8,7 +8,7 @@ class ProfilePageView extends StatelessWidget {
         assert(articles.isNotEmpty);
 
   final PageController _controller = PageController(
-    initialPage: 1,
+    initialPage: 0,
     viewportFraction: 0.8,
   );
   final List<Article> _articles;

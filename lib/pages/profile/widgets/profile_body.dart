@@ -6,11 +6,6 @@ import 'package:gottiesclient/pages/profile/widgets/profile_page_view.dart';
 import 'package:provider/provider.dart';
 
 class ProfileBody extends StatelessWidget {
-  final PageController controller = PageController(
-    initialPage: 1,
-    viewportFraction: 0.8,
-  );
-
   @override
   Widget build(BuildContext context) {
     final List<Article> articles = Provider.of<ArticleStore>(context).articles;
