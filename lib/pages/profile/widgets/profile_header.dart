@@ -121,13 +121,13 @@ class ProfileHeader extends StatelessWidget {
                     Provider.of<LoginStore>(context).user?.displayName ?? '',
                     style: const TextStyle(fontSize: 24),
                   ),
-                  const Text(
-                    '投稿数: ',
-                    style: TextStyle(fontSize: 12),
+                  Text(
+                    '投稿数: ${Provider.of<ArticleStore>(context).articles.length}',
+                    style: const TextStyle(fontSize: 12),
                   ),
-                  const Text(
-                    'お気に入り数: ',
-                    style: TextStyle(fontSize: 12),
+                  Text(
+                    'お気に入り数: ${Provider.of<ArticleStore>(context).likeArticles.length}',
+                    style: const TextStyle(fontSize: 12),
                   )
                 ],
               ),

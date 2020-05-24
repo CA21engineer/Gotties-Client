@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gottiesclient/models/stores/article_store.dart';
 import 'package:gottiesclient/pages/profile/widgets/profile_body.dart';
 import 'package:gottiesclient/pages/profile/widgets/profile_header.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -23,7 +25,10 @@ class ProfilePage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 ProfileHeader(),
-                ProfileBody(),
+                ProfileBody(
+                  postedArticles: Provider.of<ArticleStore>(context).postArticles,
+                  favoriteArticles: Provider.of<ArticleStore>(context).likeArticles,
+                ),
               ],
             ),
           ),

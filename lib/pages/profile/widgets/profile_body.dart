@@ -6,6 +6,14 @@ import 'package:gottiesclient/pages/profile/widgets/profile_page_view.dart';
 import 'package:provider/provider.dart';
 
 class ProfileBody extends StatelessWidget {
+  const ProfileBody({
+    @required List<Article> postedArticles,
+    @required List<Article> favoriteArticles,
+  })  : _postedArticles = postedArticles,
+        _favoriteArticles = favoriteArticles;
+
+  final List<Article> _postedArticles;
+  final List<Article> _favoriteArticles;
   @override
   Widget build(BuildContext context) {
     final List<Article> articles = Provider.of<ArticleStore>(context).articles;
@@ -42,7 +50,7 @@ class ProfileBody extends StatelessWidget {
           Container(
             height: 250,
             child: ProfilePageView(
-              articles: articles,
+              articles: _postedArticles,
             ),
           ),
           Container(
@@ -63,7 +71,7 @@ class ProfileBody extends StatelessWidget {
           Container(
             height: 250,
             child: ProfilePageView(
-              articles: articles,
+              articles: _favoriteArticles,
             ),
           ),
         ],

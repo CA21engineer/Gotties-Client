@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gottiesclient/models/entities/entities.dart';
 
 class ProfilePageView extends StatelessWidget {
-  ProfilePageView({@required List<Article> articles})
-      : _articles = articles,
-        assert(articles.isNotEmpty);
+  ProfilePageView({@required List<Article> articles}) : _articles = articles;
 
   final PageController _controller = PageController(
     initialPage: 0,

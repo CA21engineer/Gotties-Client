@@ -17,7 +17,9 @@ class ArticleStore extends ChangeNotifier {
   final BaseRepository _repository;
   final LoginStore _loginStore;
   List<Article> _allArticles;
-  List<Article> articles;
+  List<Article> articles = [];
+  List<Article> get postArticles => _allArticles.where((e) => e.userID == userID).toList();
+  List<Article> get likeArticles => _allArticles.where((e) => e.likeUserIds.contains(userID)).toList();
 
   String get userID => _loginStore.user?.uid;
 
@@ -66,7 +68,7 @@ class ArticleStore extends ChangeNotifier {
       _allArticles.forEach(
         (article) {
           if (article.id == articleID) {
-            article.likeUserIds.add(_loginStore.user.uid);
+            article.likeUserIds.add(userID);
           }
         },
       );
