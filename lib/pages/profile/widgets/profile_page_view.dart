@@ -9,7 +9,7 @@ class ProfilePageView extends StatelessWidget {
 
   final PageController _controller = PageController(
     initialPage: 0,
-    viewportFraction: 0.8,
+    viewportFraction: 0.85,
   );
   final List<Article> _articles;
 

@@ -30,7 +30,7 @@ class ProfileBody extends StatelessWidget {
             child: const Padding(
               padding: EdgeInsets.all(8),
               child: Text(
-                '投稿',
+                '投稿した Before After',
                 style: TextStyle(
                   color: Colors.black54,
                   fontSize: 16,
@@ -48,12 +48,15 @@ class ProfileBody extends StatelessWidget {
           Container(
             alignment: Alignment.bottomLeft,
             padding: const EdgeInsets.all(8),
-            child: const Text(
-              'Likes',
-              style: TextStyle(
-                color: Colors.black54,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+            child: const Padding(
+              padding: EdgeInsets.all(8),
+              child: Text(
+                'いいねした Before After',
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
