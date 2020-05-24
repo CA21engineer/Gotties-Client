@@ -1,99 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gottiesclient/models/entities/entities.dart';
-import 'package:gottiesclient/models/stores/stores.dart';
-import 'package:provider/provider.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:gottiesclient/pages/profile/widgets/profile_body.dart';
+import 'package:gottiesclient/pages/profile/widgets/profile_header.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final List<Article> articles = Provider.of<ArticleStore>(context).articles;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(50),
-              child: Center(
-                child: ClipOval(
-                  child: FadeInImage.memoryNetwork(
-                    placeholder: kTransparentImage,
-                    image: Provider.of<LoginStore>(context).user?.photoUrl ?? '',
-                    imageErrorBuilder: (context, error, stackTrace) =>
-                        Image.asset('assets/images/account_circle/normal.png'),
-                  ),
-                ),
-              ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: FractionalOffset.topLeft,
+            end: FractionalOffset.bottomRight,
+            colors: [
+              const Color(0xffFF3A31).withOpacity(0.7),
+              const Color(0xffFFeeee).withOpacity(0.7),
+            ],
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: SafeArea(
+            child: Column(
+              children: <Widget>[
+                ProfileHeader(),
+                ProfileBody(),
+              ],
             ),
-            Text(
-              Provider.of<LoginStore>(context).user?.displayName ?? '',
-              style: const TextStyle(fontSize: 20),
-            ),
-            Container(
-              alignment: Alignment.bottomLeft,
-              padding: const EdgeInsets.all(8),
-              child: const Text(
-                '投稿した Before After',
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            Container(
-              height: 250,
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: Column(
-                      children: <Widget>[
-                        Image.network(
-                          articles[index].beforeImageURL,
-                          height: 200,
-                        ),
-                        Text(articles[index].title),
-                      ],
-                    ),
-                  );
-                },
-                itemCount: articles.length,
-                scrollDirection: Axis.horizontal,
-              ),
-            ),
-            Container(
-              alignment: Alignment.bottomLeft,
-              padding: const EdgeInsets.all(8),
-              child: const Text(
-                'いいねした Before After',
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            Container(
-              height: 250,
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: Column(
-                      children: <Widget>[
-                        Image.network(
-                          articles[index].beforeImageURL,
-                          height: 200,
-                        ),
-                        Text(articles[index].title),
-                      ],
-                    ),
-                  );
-                },
-                itemCount: articles.length,
-                scrollDirection: Axis.horizontal,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
