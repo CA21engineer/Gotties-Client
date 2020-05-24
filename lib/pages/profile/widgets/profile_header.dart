@@ -9,7 +9,7 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _loginStore = Provider.of<LoginStore>(context);
+    _loginStore = Provider.of<LoginStore>(context, listen: false);
 
     return Column(
       children: <Widget>[
@@ -70,7 +70,7 @@ class ProfileHeader extends StatelessWidget {
                                     child: const Text('OK'),
                                     onPressed: () {
                                       _loginStore.logout();
-                                      Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                                      Navigator.popUntil(context, (route) => route.isFirst);
                                     },
                                   ),
                                 ],
