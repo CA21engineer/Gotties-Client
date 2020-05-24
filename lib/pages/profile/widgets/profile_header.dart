@@ -122,7 +122,7 @@ class ProfileHeader extends StatelessWidget {
                     style: const TextStyle(fontSize: 24),
                   ),
                   Text(
-                    '投稿数: ${Provider.of<ArticleStore>(context).articles.length}',
+                    '投稿数: ${Provider.of<ArticleStore>(context).postArticles.length}',
                     style: const TextStyle(fontSize: 12),
                   ),
                   Text(
