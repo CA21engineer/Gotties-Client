@@ -5,11 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class ProfileHeader extends StatelessWidget {
-  LoginStore _loginStore;
-
   @override
   Widget build(BuildContext context) {
-    _loginStore = Provider.of<LoginStore>(context, listen: false);
+    final LoginStore _loginStore = Provider.of<LoginStore>(context, listen: false);
 
     return Column(
       children: <Widget>[

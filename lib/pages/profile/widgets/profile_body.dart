@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gottiesclient/models/models.dart';
-import 'package:gottiesclient/models/stores/stores.dart';
 import 'package:gottiesclient/pages/profile/widgets/profile_page_view.dart';
-import 'package:provider/provider.dart';
 
 class ProfileBody extends StatelessWidget {
   const ProfileBody({
@@ -16,8 +14,6 @@ class ProfileBody extends StatelessWidget {
   final List<Article> _favoriteArticles;
   @override
   Widget build(BuildContext context) {
-    final List<Article> articles = Provider.of<ArticleStore>(context).articles;
-
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xfffefefe),
