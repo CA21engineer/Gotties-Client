@@ -8,7 +8,6 @@ class CategoryChip extends StatelessWidget {
 
   final String _title;
 
-  String title;
   @override
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.only(top: 2, bottom: 2, left: 8, right: 8),
