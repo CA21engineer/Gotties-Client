@@ -44,7 +44,7 @@ class ProfileBody extends StatelessWidget {
             ),
           ),
           Container(
-            height: 250,
+            height: 300,
             child: ProfilePageView(
               articles: _postedArticles,
             ),
@@ -65,7 +65,8 @@ class ProfileBody extends StatelessWidget {
             ),
           ),
           Container(
-            height: 250,
+            height: 300,
+            margin: const EdgeInsets.only(bottom: 50),
             child: ProfilePageView(
               articles: _favoriteArticles,
             ),
