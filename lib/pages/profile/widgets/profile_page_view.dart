@@ -20,7 +20,9 @@ class ProfilePageView extends StatelessWidget {
     return PageView(
       controller: _controller,
       children: _articles
-          .map((e) => Card(
+          .map(
+            (e) => GestureDetector(
+              child: Card(
                 child: Column(
                   children: <Widget>[
                     Container(
@@ -92,7 +94,16 @@ class ProfilePageView extends StatelessWidget {
                     ),
                   ],
                 ),
-              ))
+              ),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  '/detail',
+                  arguments: e,
+                );
+              },
+            ),
+          )
           .toList(),
     );
   }
