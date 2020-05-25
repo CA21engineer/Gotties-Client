@@ -41,7 +41,11 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             onPressed: () {
-              Navigator.pushNamed(context, '/login');
+              if (Provider.of<LoginStore>(context, listen: false).isLoggedIn) {
+                Navigator.pushNamed(context, '/profile');
+              } else {
+                Navigator.pushNamed(context, '/login');
+              }
             },
           ),
         )
