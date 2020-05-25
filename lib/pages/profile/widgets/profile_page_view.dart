@@ -24,12 +24,21 @@ class ProfilePageView extends StatelessWidget {
           .map(
             (e) => GestureDetector(
               child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
                 child: Column(
                   children: <Widget>[
                     Container(
                       height: 200,
-                      child: ImageWithBackground(
-                        imageURL: e.beforeImageURL,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(16),
+                          topRight: Radius.circular(16),
+                        ),
+                        child: ImageWithBackground(
+                          imageURL: e.beforeImageURL,
+                        ),
                       ),
                     ),
                     Padding(
