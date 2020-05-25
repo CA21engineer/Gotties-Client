@@ -10,20 +10,18 @@ class CategoryRepository extends ChangeNotifier {
   }
 
   final BaseClient _client;
+
   List<Category> _categories;
   List<Category> searchedCategories;
 
   // カテゴリを選択していない状態(null) = 全てのカテゴリ
   Category selectedCategory;
 
+  // TODO: try catchはStoreで
   Future<void> getCategories() async {
-    try {
-      _categories = await _client.getCategories();
-      searchedCategories = _categories;
-      notifyListeners();
-    } on Exception catch (e) {
-      debugPrint(e.toString());
-    }
+    _categories = await _client.getCategories();
+    searchedCategories = _categories;
+    notifyListeners();
   }
 
   void searchCategory(String word) {

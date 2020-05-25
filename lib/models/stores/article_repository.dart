@@ -20,6 +20,7 @@ class ArticleRepository extends ChangeNotifier {
 
   String get userID => _loginStore.user?.uid;
 
+  // TODO: try catchはStoreで
   Future<void> getArticles() async {
     articles = await _client.getArticles();
     notifyListeners();
