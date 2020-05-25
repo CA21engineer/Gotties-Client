@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gottiesclient/models/entities/entities.dart';
+import 'package:gottiesclient/models/stores/stores.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePageView extends StatelessWidget {
   ProfilePageView({@required List<Article> articles}) : _articles = articles;
@@ -36,20 +38,46 @@ class ProfilePageView extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(4),
+                      padding: const EdgeInsets.all(8),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Container(
-                              margin: const EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
-                              padding: const EdgeInsets.only(top: 2, bottom: 2, left: 8, right: 8),
-                              child: Text(e.category.title),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: Colors.red),
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Container(
+                                  padding: const EdgeInsets.only(top: 2, bottom: 2, left: 8, right: 8),
+                                  child: Text(e.category.title),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: Colors.red),
+                                  ),
+                                ),
+                                Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      IconButton(
+                                        icon: Icon(
+                                          Provider.of<ArticleStore>(context).isLike(e.id)
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          color: Colors.redAccent,
+                                        ),
+                                        onPressed: () {
+                                          if (Provider.of<ArticleStore>(context, listen: false).isLike(e.id)) {
+                                            Provider.of<ArticleStore>(context, listen: false).unlikeArticle(e.id);
+                                          } else {
+                                            Provider.of<ArticleStore>(context, listen: false).likeArticle(e.id);
+                                          }
+                                        },
+                                      ),
+                                      Text('${e.likeUserIds.length}'),
+                                    ],
+                                  ),
+                                )
+                              ],
                             ),
                             Text(
                               e.title,
