@@ -1,4 +1,4 @@
-export 'article_store.dart';
+export 'article_repository.dart';
 export 'category_store.dart';
 export 'detail_store.dart';
 export 'focus_node_store.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gottiesclient/models/entities/article.dart';
-import 'package:gottiesclient/models/stores/article_store.dart';
 import 'package:gottiesclient/models/stores/share_store.dart';
+import 'package:gottiesclient/models/stores/stores.dart';
 import 'package:gottiesclient/util/converter.dart';
 import 'package:gottiesclient/widgets/icon_button_with_splash.dart';
 import 'package:provider/provider.dart';
