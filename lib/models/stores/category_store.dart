@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gottiesclient/models/entities/entities.dart';
 import 'package:gottiesclient/models/models.dart';
 
-class CategoryStore extends ChangeNotifier {
-  CategoryStore(BaseClient client)
+class CategoryRepository extends ChangeNotifier {
+  CategoryRepository(BaseClient client)
       : assert(client != null),
         _client = client {
     getCategories();

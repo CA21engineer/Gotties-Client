@@ -5,8 +5,8 @@ import 'package:gottiesclient/models/entities/article.dart';
 import 'package:gottiesclient/models/models.dart';
 import 'package:gottiesclient/models/stores/stores.dart';
 
-class ArticleStore extends ChangeNotifier {
-  ArticleStore(LoginStore loginStore, BaseClient client)
+class ArticleRepository extends ChangeNotifier {
+  ArticleRepository(LoginStore loginStore, BaseClient client)
       : assert(client != null),
         assert(loginStore != null),
         _loginStore = loginStore,
