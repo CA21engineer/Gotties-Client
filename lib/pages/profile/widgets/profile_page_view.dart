@@ -3,8 +3,9 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gottiesclient/models/entities/entities.dart';
-import 'package:gottiesclient/models/stores/stores.dart';
-import 'package:provider/provider.dart';
+import 'package:gottiesclient/pages/profile/widgets/category_chip.dart';
+import 'package:gottiesclient/pages/profile/widgets/image_with_background.dart';
+import 'package:gottiesclient/pages/profile/widgets/like_widget.dart';
 
 class ProfilePageView extends StatelessWidget {
   ProfilePageView({@required List<Article> articles}) : _articles = articles;
@@ -27,16 +28,8 @@ class ProfilePageView extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       height: 200,
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: <Widget>[
-                          Container(
-                            color: const Color(0xffeeeeee),
-                          ),
-                          Image.network(
-                            e.beforeImageURL,
-                          ),
-                        ],
+                      child: ImageWithBackground(
+                        imageURL: e.beforeImageURL,
                       ),
                     ),
                     Padding(
@@ -49,36 +42,8 @@ class ProfilePageView extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Container(
-                                  padding: const EdgeInsets.only(top: 2, bottom: 2, left: 8, right: 8),
-                                  child: Text(e.category.title),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.red),
-                                  ),
-                                ),
-                                Container(
-                                  child: Row(
-                                    children: <Widget>[
-                                      IconButton(
-                                        icon: Icon(
-                                          Provider.of<ArticleStore>(context).isLike(e.id)
-                                              ? Icons.favorite
-                                              : Icons.favorite_border,
-                                          color: Colors.redAccent,
-                                        ),
-                                        onPressed: () {
-                                          if (Provider.of<ArticleStore>(context, listen: false).isLike(e.id)) {
-                                            Provider.of<ArticleStore>(context, listen: false).unlikeArticle(e.id);
-                                          } else {
-                                            Provider.of<ArticleStore>(context, listen: false).likeArticle(e.id);
-                                          }
-                                        },
-                                      ),
-                                      Text('${e.likeUserIds.length}'),
-                                    ],
-                                  ),
-                                )
+                                CategoryChip(title: e.category.title),
+                                LikeWidget(article: e),
                               ],
                             ),
                             Text(
