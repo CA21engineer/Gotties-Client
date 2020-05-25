@@ -47,11 +47,11 @@ class ArticleRepository extends ChangeNotifier {
       throw UnauthorisedException();
     }
     await _client.likeArticle(userID, articleID);
-    articles = articles.map((article) {
+    articles.forEach((article) {
       if (article.id == articleID) {
         article.likeUserIds.add(_loginStore.user.uid);
       }
-    }).toList();
+    });
     notifyListeners();
   }
 
@@ -69,11 +69,11 @@ class ArticleRepository extends ChangeNotifier {
       throw UnauthorisedException();
     }
     await _client.unlikeArticle(userID, articleID);
-    articles = articles.map((article) {
+    articles.forEach((article) {
       if (article.id == articleID) {
         article.likeUserIds.remove(userID);
       }
-    }).toList();
+    });
     notifyListeners();
   }
 
