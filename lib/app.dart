@@ -16,19 +16,19 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => LoginStore(),
         ),
-        Provider<BaseRepository>.value(
-          value: FirestoreRepository(),
+        Provider<BaseClient>.value(
+          value: FirestoreClient(),
         ),
       ],
-      child: Consumer2<LoginStore, BaseRepository>(
-        builder: (_, loginStore, repository, ___) {
+      child: Consumer2<LoginStore, BaseClient>(
+        builder: (_, loginStore, client, ___) {
           return MultiProvider(
             providers: [
               ChangeNotifierProvider(
-                create: (_) => ArticleStore(loginStore, repository),
+                create: (_) => ArticleStore(loginStore, client),
               ),
               ChangeNotifierProvider(
-                create: (_) => CategoryStore(repository),
+                create: (_) => CategoryStore(client),
               ),
               ChangeNotifierProvider(
                 create: (_) => PostPageStore(),

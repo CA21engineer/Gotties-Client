@@ -5,11 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:gottiesclient/models/models.dart';
 import 'package:http/http.dart' as http;
 
-class ApiRepository implements BaseRepository {
+class ApiClient implements BaseClient {
   // TODO: APIの仕様が決まれば追記
   final String _baseUrl = 'http://localhost:8080';
 
-  final FirestoreRepository _firestoreRepository = FirestoreRepository();
+  final FirestoreClient _firestoreRepository = FirestoreClient();
 
   @override
   Future<List<Article>> getArticles() async {
