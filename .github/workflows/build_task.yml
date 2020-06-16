@@ -162,9 +162,41 @@ jobs:
           APK_PATH: ./app-release.apk
           RELEASE_NOTE: ${{ github.head_ref }}
         run: bundle exec fastlane android distribute_app
-  notification:
+
+  notification_success:
     needs: [distribute_app]
-    if: ${{ !contains(github.event.pull_request.title, '[skip ci]') }} && ${{ always() }}
+    if: ${{ !contains(github.event.pull_request.title, '[skip ci]') }} && ${{ success() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Download file post_message.txt
+        uses: actions/download-artifact@v1
+        with:
+          name: pass_file
+      - name: Read file failure.txt and set output parameter
+        id: set_output
+        run: echo "::set-output name=failure::$(<pass_file/failure.txt)"
+      - name: get commit message
+        id: set_commitmsg
+        run: echo "::set-output name=commitmsg::$(git log --format=%B -n 1 ${{ github.event.after }})"
+      # 成功した時のSlackへの通知
+      - name: Slack Notification Success
+        uses: rtCamp/action-slack-notify@v2.0.1
+        env:
+          SLACK_CHANNEL: gotties-log
+          SLACK_ICON: https://github.com/actions.png?size=48
+          SLACK_TITLE: ':rocket: Build Success :rocket:'
+          SLACK_MESSAGE: |
+            Build success! yattane!
+            commit -> `${{ steps.set_commitmsg.outputs.commitmsg }}`
+          SLACK_USERNAME: Github Actions
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+  notification_failure:
+    needs: [distribute_app]
+    if: ${{ !contains(github.event.pull_request.title, '[skip ci]') }} && ${{ failure() }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -182,8 +214,7 @@ jobs:
         run: echo "::set-output name=commitmsg::$(git log --format=%B -n 1 ${{ github.event.after }})"
       # 失敗したときのSlackへの通知
       - name: Slack Notification Failure
-#        if: ${{ needs.distribute_app.result == 'failure' }}
-        if: ${{ failure() }}
+        #        if: ${{ needs.distribute_app.result == 'failure' }}
         uses: rtCamp/action-slack-notify@v2.0.1
         env:
           SLACK_CHANNEL: gotties-log
@@ -193,19 +224,6 @@ jobs:
           SLACK_MESSAGE: |
             Build failure!
             See more detail to check github.
-            commit -> `${{ steps.set_commitmsg.outputs.commitmsg }}`
-          SLACK_USERNAME: Github Actions
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-      # 成功した時のSlackへの通知
-      - name: Slack Notification Success
-        if:  ${{ needs.distribute_app.result == 'success' }}
-        uses: rtCamp/action-slack-notify@v2.0.1
-        env:
-          SLACK_CHANNEL: gotties-log
-          SLACK_ICON: https://github.com/actions.png?size=48
-          SLACK_TITLE: ':rocket: Build Success :rocket:'
-          SLACK_MESSAGE: |
-            Build success! yattane!
             commit -> `${{ steps.set_commitmsg.outputs.commitmsg }}`
           SLACK_USERNAME: Github Actions
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
