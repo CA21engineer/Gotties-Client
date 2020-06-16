@@ -9,7 +9,7 @@ class ApiClient implements BaseClient {
   // TODO: APIの仕様が決まれば追記
   final String _baseUrl = 'http://localhost:8080';
 
-  final FirestoreClient _firestoreRepository = FirestoreClient();
+  // final FirestoreClient _firestoreRepository = FirestoreClient();
 
   @override
   Future<List<Article>> getArticles() async {
